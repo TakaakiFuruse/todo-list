@@ -1,10 +1,14 @@
-# Ruby Todos 1 0 Core Features 
+# Ruby Todos 1.0 Core Features 
  
 ##Learning Competencies 
 
+* Create well-defined classes with a single responsibility
+* Identify and implement classes based on real world requirements
+* Implement clean and flexible interfaces between objects
+
 ##Summary 
 
- This is the first of several iterations towards building a single-user command-line TODO application.  Each iteration will involve addinging new commands and features.
+ This is the first of several iterations towards building a single-user command-line TODO application.  Each iteration will involve adding new commands and features.
 
 From the user's perspective, we want to build something that works like this:
 
@@ -15,7 +19,7 @@ $ ruby todo.rb delete <task_id>
 $ ruby todo.rb complete <task_id>
 ```
 
-Your text file (an example is included in the Original gist) will be simple.  Just task descriptions each on their own line.  Keep in mind that you will eventually have more information included, this is why we want you to use the CSV format.
+Your text file (an example is included in this repo) will be simple.  Just task descriptions each on their own line.  Keep in mind that you will eventually have more information included, this is why we want you to use the CSV format.
 
 Example:  
 
@@ -23,71 +27,34 @@ Example:
 Bake a delicious blueberry-glazed cheesecake  
 Go play miniature golf with Mike Tyson  
 Become a World-Class Developer  
-````
+```` 
 
-### Learning Goals
+##Releases
 
-This application has all the moving parts of an MVC application: user input, display code, and data persistence.  It's important to think about what *responsibilities* this application has to fulfill.
-
-Keep things like the [single responsibility principle](http://en.wikipedia.org/wiki/Single_responsibility_principle) and [separation of concerns](http://en.wikipedia.org/wiki/Separation_of_concerns) in mind as you decide what objects and classes belong in your application.
-
-As you work through the iterations, pay close attention to how *change* impacts your application.  When a new feature is added how many files do you have to change?  How frustrating is it to make those changes?
- 
-## Objectives
-
-### Enumerate the responsibilities
+###Release 0 : Enumerate the responsibilities
 
 Start by enumerating the responsibilities of your TODO application.  These aren't just the user-facing commands like "add", "delete", etc.  They're also back-end responsibilities like reading and writing from the `todo.csv` file, parsing command-line arguments, and printing the "interface" to the console.
 
 Each responsibility should map to a concrete unit of Ruby code.  For example,
 
-<table class="table table-striped table-bordered">
-  <tr>
-    <th>Responsibility</th>
-    <th>Code world</th>
-  </tr>
-  <tr>
-    <td>Initialize an empty TODO list</td>
-    <td>
-      <code>list = List.new</code>
-    </td>
-  </tr>
-  <tr>
-    <td>Add a task to a TODO list</td>
-    <td>
-      <code>list.add(Task.new("walk the dog"))</code>
-    </td>
-  </tr>
-  <tr>
-    <td>Get all the tasks on a TODO list</td>
-    <td>
-      <code>tasks = list.tasks</code>
-    </td>
-  </tr>
-  <tr>
-    <td>Delete a particular task from a TODO list</td>
-    <td><code>???</code></td>
-  </tr>
-  <tr>
-    <td>Complete a particular task on a TODO list</td>
-    <td><code>???</code></td>
-  </tr>
+Responsibility                                                                     | Code World
+-----------------------------------------------------------------------------------|------------------------------------
+Initialize an empty TODO list                                                      | `list = List.new`
+Add a task to a TODO list                                                          | `list.add(Task.new("walk the dog"))`
+Get all the tasks on a TODO list                                                   | ` tasks = list.tasks`
+Delete a particular task from a TODO list                                          | `???`
+Complete a particular task on a TODO list                                          | `???`
+Parse the command-line arguments and take the appropriate action                   | `???`
+Parse the `todo.csv` file and wrap each entry in easier-to-manipulate Ruby objects | `???`
 
-  <tr>
-    <td>Parse the command-line arguments and take the appropriate action</td>
-    <td><code>???</code></td>
-  </tr>
-  <tr>
-    <td>Parse the <code>todo.csv</code> file and wrap each entry in easier-to-manipulate Ruby objects</td>
-    <td><code>???</code></td>
-  </tr>
-  <tr>
-    <td>There are other responsibilities.  What are they?</td>
-    <td></td>
-  </tr>
-</table>
 
-### Implement the list command
+There are other responsibilities.  What are they?
+
+###Release 1 : Translate to Code
+
+Once you have a solid list of responsibilities you can start translating each into code.  Be sure to write comprehensive test code.
+
+####Implement the list command
 
 When you run
 
@@ -106,7 +73,7 @@ $ ruby todo.rb list
 
 You'll have to design and build basic controller and model code to make this work.  For example, how does your program know the user wants to "add" a task to their list?
 
-### Implement the add command
+#### Implement the add command
 
 Requirements:
 
@@ -120,7 +87,7 @@ Appended "Walk the dog" to your TODO list...
 $
 ```
 
-### Implement the delete command
+#### Implement the delete command
 
 Requirements:
 
@@ -144,7 +111,7 @@ $ ruby todo.rb list
 $
 ```
 
-### Implement completeness
+#### Implement completeness
 
 Requirements:
 
@@ -153,7 +120,7 @@ Requirements:
 
 **Note**: This will require changing the format of `todo.csv` and the code that parses it.
 
-### Extra Credit: Human Readable File
+###Release 2 : Human Readable File
 
 Here's the deal:  Google just LOVES your new command line todo app.  And they're ready to buy you out for millions if only you can change the CSV file to a human readable file, so that it can be printed out easily.  They also want the app to be able to handle commas in the task description - something a CSV file doesn't accommodate very easily.
 
@@ -170,11 +137,12 @@ Here's the way the file should be saved:
 What factors do you need to take into account to save this data correctly?  How does this change the parsing (besides not being able to use the CSV class)?  
 
 Update your app to accommodate this new feature!
- 
-
-##Releases
-###Release 0 
 
 ##Optimize Your Learning 
+
+Keep things like the [single responsibility principle](http://en.wikipedia.org/wiki/Single_responsibility_principle) and [separation of concerns](http://en.wikipedia.org/wiki/Separation_of_concerns) in mind as you decide what objects and classes belong in your application.
+
+As you work through the iterations, pay close attention to how *change* impacts your application.  When a new feature is added how many files do you have to change?  How frustrating is it to make those changes?
+
 
 ##Resources
