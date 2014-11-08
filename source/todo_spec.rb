@@ -4,12 +4,14 @@ describe TodoParser do
   it "parse csv data and save as new csv" do
   end
 
-  let(:test_parser){TodoParser.new}
+  let(:test_parser){TodoParser.new('todo.csv')}
+  let(:test_array) {Array.new}
 
     describe "#parse" do
       it "parse csv data" do
-        test_parser.parse
-        expect(todo_data.length).not_to eq(0)
+        test_array = []
+        test_array << test_parser.parse
+        expect(test_array.nil?).to eq(false)
       end
     end
 

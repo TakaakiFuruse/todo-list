@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 # What classes do you need?
 
@@ -12,13 +13,21 @@ require 'csv'
 # Pretty much every application in the universe has some version of responsibilities (1), (2), and (3).
 
 class TodoParser
-  def initialize(arg = todo.csv)
-    @todo_data = todo_data
+
+  attr_accessor :file_name
+  def initialize(file_name = 'todo.csv')
+    @file_name = file_name
   end
 
 
   def parse
-    CSV.readline
+    CSV.foreach(file_name) do |row|
+      row
+    end
+  end
+
+  def save 
+    
   end
 end
 
@@ -29,3 +38,6 @@ end
 class Console
   
 end
+
+# t1 = TodoParser.new('todo.csv')
+# t1.parse
