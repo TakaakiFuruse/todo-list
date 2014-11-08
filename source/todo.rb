@@ -10,3 +10,22 @@ require 'csv'
 
 # Note that (4) is where the essence of your application lives.
 # Pretty much every application in the universe has some version of responsibilities (1), (2), and (3).
+
+class TodoParser
+  def initialize(arg = todo.csv)
+    @todo_data = todo_data
+  end
+
+
+  def parse
+    CSV.readline
+  end
+end
+
+class Task
+  
+end
+
+class Console
+  
+end
