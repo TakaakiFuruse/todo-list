@@ -22,22 +22,42 @@ class TodoParser
 
   def parse
     CSV.foreach(file_name) do |row|
-      row
+      # row
     end
   end
 
   def save 
-    
+
   end
 end
 
 class Task
+  attr_accessor :done
+  attr_reader :task, :id
+  def initialize(arg)
+    @id = arg[:id]
+    @task = arg[:task]
+    @done = arg.fetch(:done, false)
+  end 
+
+  def task_done
+    self.done = true
+  end
+
+  def done_to_s
+    self.done ? "[X]" : "[ ]"
+  end
+
+  def to_s
+    #{self.id} - #{self.done_to_s} #self.
+  end
+
+end
+
+class TodoList
   
 end
 
 class Console
   
 end
-
-# t1 = TodoParser.new('todo.csv')
-# t1.parse
