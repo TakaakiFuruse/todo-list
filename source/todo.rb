@@ -12,17 +12,12 @@ require 'pry'
 # Note that (4) is where the essence of your application lives.
 # Pretty much every application in the universe has some version of responsibilities (1), (2), and (3).
 
-class TodoParser
+module TodoParser
+  class << self
 
-  attr_accessor :file_name
-  def initialize(file_name = 'todo.csv')
-    @file_name = file_name
-  end
-
-
-  def parse
-    CSV.foreach(file_name) do |row|
-      # row
+  def parse(file_name = 'todo.csv')
+    CSV.readlines(file_name).map.with_index(1) do |row, ind|
+      Task.new(id:ind ,task: row)
     end
   end
 
@@ -34,6 +29,7 @@ end
 class Task
   attr_accessor :done
   attr_reader :task, :id
+
   def initialize(arg)
     @id = arg[:id]
     @task = arg[:task]
@@ -55,9 +51,20 @@ class Task
 end
 
 class TodoList
-  
+  attr_accessor :todo_list
+
+  def initialize(file_name = 'todo.csv')
+    @todo_list = TodoParser.parse(file_name)
+  end
+
+  def list_by_id(id_num)
+    todo_list.each{|n| puts n if n == id_num}
+  end
 end
 
 class Console
   
 end
+
+# t1 = TodoParser.new
+# p t1.parse

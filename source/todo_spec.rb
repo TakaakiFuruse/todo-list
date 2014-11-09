@@ -1,21 +1,6 @@
 require_relative 'todo'
 
-describe TodoParser do
-  let(:test_parser){TodoParser.new('todo.csv')}
-  let(:test_array) {Array.new}
 
-    describe "#parse" do
-      it "parse csv data" do
-        test_array << test_parser.parse
-        expect(test_array.nil?).to eq(false)
-      end
-    end
-
-    # describe "#save" do
-    #   it "saves added task " {}
-    #   it "saves new task status" {}
-    # end
-end
 
 describe Task do
   let(:test_task) {Task.new({id: 1, task: "test task"})}
@@ -46,9 +31,14 @@ end
 describe TodoList do
   let(:test_todolist){TodoList.new}
   let(:test_task) {Task.new({id: 1, task: "test task"})}
+
+  it "creates todo list from csv" do
+    expect(test_todolist.todo_list).to eq(13)
+  end
+
     describe "#list_by_id" do
       it "return task with matched id" do
-        expect(test_todolist.list_by_id(1)).to eq(test_task.id)
+        # expect(test_todolist.list_by_id(1)).to eq(test_task[0].to_s)
         
       end
       
@@ -63,6 +53,23 @@ describe TodoList do
     end
 
 end
+
+# describe TodoParser do
+#   let(:test_parser){TodoParser.new('todo.csv')}
+#   let(:test_array) {Array.new}
+
+#     describe "#parse" do
+#       it "parse csv, initialize task object, make array " do
+#         test_array << test_parser.parse
+#         expect(test_array.empty?).to eq(false)
+#       end
+#     end
+
+#     # describe "#save" do
+#     #   it "saves added task " {}
+#     #   it "saves new task status" {}
+#     # end
+# end
 
 describe Console do
   it "shows console screen" do
