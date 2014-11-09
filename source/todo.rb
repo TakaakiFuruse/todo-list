@@ -40,7 +40,7 @@ class Task
   end
 
   def to_s
-    "#{self.id} - #{self.done_to_s} #{self.task[0]}"
+    "#{id} - #{done_to_s} #{task}"
   end
 
 end
@@ -55,22 +55,23 @@ class TodoList
   def list_by_id(id_num)
     #memo : "puts" inside a block -> return value would be nil. 
     # return value and then print out -> you can test also.
-    task_found = todo_list.select{|task| task.id == id_num}
+    task_found = todo_list.select{|task| task.id.to_i == id_num.to_i}
     task_found == [] ? (puts "Task can't found.") : (puts task_found)
   end
 
   def list_all
-   todo_list.each{|task| puts task}
+   todo_list.map{|task| puts task.to_s}
   end
 
   def delete(id_num)
-    todo_list.delete_if{|task| task.id == id_num}
+    todo_list.delete_if{|task| task.id == id_num.to_i}
+    self.save
   end
 
   def add_task(task_detail)
-
     new_id = todo_list[-1].id + 1
     @todo_list << Task.new(id:new_id ,task: task_detail)
+    self.save
   end
 
   def save(file_name = 'todo.csv')
@@ -84,9 +85,64 @@ class TodoList
 end
 
 class Console
-  
+  attr_accessor :input, :task
+
+  def initialize
+    @input = input
+    @task = TodoList.new
+  end
+
+  def welcome
+    puts
+    puts
+    puts "----TODO LIST------"
+    puts "A   - ADD"
+    puts "S   - Show a task  "
+    puts "L   - List all task"
+    puts "Del - Delete task  "
+    puts "Q   - Quit program "
+    puts
+    puts
+
+    input = gets.chomp
+    control(input)
+  end
+
+  def control(arg)
+    case arg 
+    when "A" then
+      puts "Input your task."
+      input = gets.chomp
+      task.add_task(input)
+      puts "#{input} was added."
+      welcome
+
+    when "L" then
+      task.list_all
+      welcome
+
+    when "S" then
+      puts "Task ID ?"
+      input = gets.chomp
+      task.list_by_id(input)
+      welcome
+
+    when "Del" then
+      puts "Task ID to Delete ?"
+      input = gets.chomp
+      task.delete(input)
+      welcome
+
+    when "Q" then
+      puts "BYE!!"
+      exit
+    end
+  end
+
 end
 
-t1 = TodoList.new
-t1.add_task("test task added")
-t1.save
+
+
+todo = Console.new
+    todo.welcome
+    todo.control
