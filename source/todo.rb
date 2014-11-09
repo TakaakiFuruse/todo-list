@@ -14,12 +14,9 @@ require 'pry'
 module TodoParser
   class << self
     def parse(file_name = 'todo.csv')
-      CSV.readlines(file_name).map.with_index(1) do |row, ind|
-        Task.new(id:ind ,task: row)
+      CSV.readlines(file_name, {:converters => :all}).map do |row|
+        Task.new(id: row[0], task: row[1],  done: row[2])
       end
-    end
-
-    def save 
     end
   end
 end
@@ -56,8 +53,34 @@ class TodoList
   end
 
   def list_by_id(id_num)
-    todo_list.each{|task| puts task if task.id == id_num}
+    #memo : "puts" inside a block -> return value would be nil. 
+    # return value and then print out -> you can test also.
+    task_found = todo_list.select{|task| task.id == id_num}
+    task_found == [] ? (puts "Task can't found.") : (puts task_found)
   end
+
+  def list_all
+   todo_list.each{|task| puts task}
+  end
+
+  def delete(id_num)
+    todo_list.delete_if{|task| task.id == id_num}
+  end
+
+  def add_task(task_detail)
+
+    new_id = todo_list[-1].id + 1
+    @todo_list << Task.new(id:new_id ,task: task_detail)
+  end
+
+  def save(file_name = 'todo.csv')
+       CSV.open(file_name, 'w') do |csv|
+         @todo_list.each do |object|
+         csv << [object.id, object.task, object.done]
+         end
+       end
+  end
+
 end
 
 class Console
@@ -65,4 +88,5 @@ class Console
 end
 
 t1 = TodoList.new
-t1.list_by_id(1)
+t1.add_task("test task added")
+t1.save

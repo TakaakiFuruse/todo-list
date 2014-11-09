@@ -28,18 +28,33 @@ end
 
 describe TodoList do
   let(:test_todolist){TodoList.new}
-  let(:test_task) {Task.new({id: 1, task: "test task"})}
 
   it "creates todo list from csv" do
     expect(test_todolist.todo_list.length).not_to eq(0)
   end
 
-  describe "add" do
-    it " " do
+  describe "#list_all" do
+    it "lists every tasks"
+  end
+
+  describe "list_by_id" do
+    it "return nil if not found" do
+      expect(test_todolist.list_by_id(1000)).to eq(nil)
     end
   end
+
   describe "#delete" do
-    
+    it "delete task" do
+      test_todolist.delete(1)
+      expect(test_todolist.list_by_id(1)).to eq(nil)
+    end
+  end
+
+  describe "#add" do
+    it "adds task from user input, add last task +1 ID number " do
+      test_todolist.add_task("add test task")
+      expect(test_todolist.todo_list[-1].task).to eq("add test task")
+    end
   end
 
 end
@@ -56,7 +71,10 @@ end
 #     end
 
 #     # describe "#save" do
-#     #   it "saves added task " {}
+#     #   it "saves added task "
+        # t1 = TodoList.new
+        # t1.add_task("test task added")
+        # t1.save
 #     #   it "saves new task status" {}
 #     # end
 # end
