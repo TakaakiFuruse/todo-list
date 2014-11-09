@@ -1,7 +1,5 @@
 require_relative 'todo'
 
-
-
 describe Task do
   let(:test_task) {Task.new({id: 1, task: "test task"})}
 
@@ -33,24 +31,16 @@ describe TodoList do
   let(:test_task) {Task.new({id: 1, task: "test task"})}
 
   it "creates todo list from csv" do
-    expect(test_todolist.todo_list).to eq(13)
+    expect(test_todolist.todo_list.length).not_to eq(0)
   end
 
-    describe "#list_by_id" do
-      it "return task with matched id" do
-        # expect(test_todolist.list_by_id(1)).to eq(test_task[0].to_s)
-        
-      end
-      
+  describe "add" do
+    it " " do
     end
-
-    describe "#list_all" do
-      
-    end
-
-    describe "#delete" do
-      
-    end
+  end
+  describe "#delete" do
+    
+  end
 
 end
 

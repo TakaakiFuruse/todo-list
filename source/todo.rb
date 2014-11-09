@@ -1,6 +1,5 @@
 require 'csv'
 require 'pry'
-
 # What classes do you need?
 
 # Remember, there are four high-level responsibilities, each of which have multiple sub-responsibilities:
@@ -14,15 +13,14 @@ require 'pry'
 
 module TodoParser
   class << self
-
-  def parse(file_name = 'todo.csv')
-    CSV.readlines(file_name).map.with_index(1) do |row, ind|
-      Task.new(id:ind ,task: row)
+    def parse(file_name = 'todo.csv')
+      CSV.readlines(file_name).map.with_index(1) do |row, ind|
+        Task.new(id:ind ,task: row)
+      end
     end
-  end
 
-  def save 
-
+    def save 
+    end
   end
 end
 
@@ -45,7 +43,7 @@ class Task
   end
 
   def to_s
-    #{self.id} - #{self.done_to_s} #self.
+    "#{self.id} - #{self.done_to_s} #{self.task[0]}"
   end
 
 end
@@ -58,7 +56,7 @@ class TodoList
   end
 
   def list_by_id(id_num)
-    todo_list.each{|n| puts n if n == id_num}
+    todo_list.each{|task| puts task if task.id == id_num}
   end
 end
 
@@ -66,5 +64,5 @@ class Console
   
 end
 
-# t1 = TodoParser.new
-# p t1.parse
+t1 = TodoList.new
+t1.list_by_id(1)
