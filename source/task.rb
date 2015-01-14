@@ -18,15 +18,15 @@ class Task
   def initialize(arg)
     @id = arg[:id]
     @task = arg[:task]
-    @done = arg.fetch(:done, false)
+    @done = arg.fetch(:done, "false")
   end 
 
   def task_done
-    self.done = true
+    self.done = "true"
   end
 
   def done_to_s
-    self.done ? "[X]" : "[ ]"
+    (self.done == "true") ? "[X]" : "[ ]"
   end
 
   def to_s
@@ -34,3 +34,4 @@ class Task
   end
 
 end
+
