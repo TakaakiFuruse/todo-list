@@ -23,7 +23,7 @@ class Console
     control(input)
   end
 
-  def control(arg)
+  def control(arg) # better to be in class Control
     case arg 
     when "A" then
       puts "Input your task."

@@ -18,8 +18,8 @@ class TodoList
   def list_all
    todo_list.map{|task| puts task.to_s}
   end
-
-  def done_by_id(id_num)
+# list umcompleted, completed, 
+  def done_by_id(id_num) # need to check false
     task_found = todo_list.select{|task| task.task_done if task.id.to_i == id_num.to_i}
     task_found == [] ? (puts "Task can't found.") : (puts "Task done!")
     self.save
